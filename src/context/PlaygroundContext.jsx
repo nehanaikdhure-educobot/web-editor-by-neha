@@ -32,11 +32,25 @@ export const languageMap = {
     },
     "html": {
         id: 71,
-        defaultCode: `print("Hello World!")`,
+        defaultCode: `<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>`,
     },
     "css": {
         id: 63,
-        defaultCode: `console.log("Hello World!");`,
+        defaultCode: `*{
+    padding:0;
+    margin:0;
+}`,
     }
 }
 

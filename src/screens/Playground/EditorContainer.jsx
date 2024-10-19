@@ -117,110 +117,110 @@ const SaveAndRunButton = styled.button`
   cursor: pointer;
 `
 const EditorContainer = ({
-  title,
-  currentLanguage,
-  setCurrentLanguage,
-  currentCode,
-  setCurrentCode,
-  folderId,
-  playgroundId,
-  saveCode,
-  runCode,
-  getFile,
-  isFullScreen,
-  setIsFullScreen
+    title,
+    currentLanguage,
+    setCurrentLanguage,
+    currentCode,
+    setCurrentCode,
+    folderId,
+    playgroundId,
+    saveCode,
+    runCode,
+    getFile,
+    isFullScreen,
+    setIsFullScreen
 }) => {
 
-  const { openModal } = useContext(ModalContext)
-  const themeOptions = [
-    { value: 'githubDark', label: 'githubDark' },
-    { value: 'githubLight', label: 'githubLight' },
-    { value: 'bespin', label: 'bespin' },
-    { value: 'duotoneDark', label: 'duotoneDark' },
-    { value: 'duotoneLight', label: 'duotoneLight' },
-    { value: 'dracula', label: 'dracula' },
-    { value: 'xcodeDark', label: 'xcodeDark' },
-    { value: 'xcodeLight', label: 'xcodeLight' },
-    { value: 'vscodeDark', label: 'vscodeDark' },
-    { value: 'vscodeLight', label: 'vscodeLight' },
-    { value: 'okaidia', label: 'okaidia' },
-  ]
+    const { openModal } = useContext(ModalContext)
+    const themeOptions = [
+        { value: 'vscodeDark', label: 'vscodeDark' },
+        { value: 'xcodeLight', label: 'xcodeLight' },
+        { value: 'xcodeDark', label: 'xcodeDark' },
+        { value: 'githubDark', label: 'githubDark' },
+        { value: 'githubLight', label: 'githubLight' },
+        { value: 'bespin', label: 'bespin' },
+        { value: 'duotoneDark', label: 'duotoneDark' },
+        { value: 'duotoneLight', label: 'duotoneLight' },
+        { value: 'dracula', label: 'dracula' },
+        { value: 'vscodeLight', label: 'vscodeLight' },
+        { value: 'okaidia', label: 'okaidia' },
+    ]
 
-  const languageOptions = [
-    { value: 'cpp', label: 'cpp' },
-    { value: 'javascript', label: 'javascript' },
-    { value: 'java', label: 'java' },
-    { value: 'python', label: 'python' },
-  ]
+    const languageOptions = [
+        { value: 'html', label: 'html' },
+        { value: 'javascript', label: 'javascript' },
+        { value: 'css', label: 'css' },
+        { value: 'python', label: 'python' },
+    ]
 
-  const handleThemeChange = (selectedOption) => {
-    setCurrentTheme(selectedOption)
-  }
-
-  const handleLanguageChange = (selectedOption) => {
-    setLanguage(selectedOption)
-    setCurrentLanguage(selectedOption.value)
-    setCurrentCode(languageMap[selectedOption.value].defaultCode)
-  }
-
-  const [currentTheme, setCurrentTheme] = useState({ value: 'githubDark', label: 'githubDark' })
-  const [language, setLanguage] = useState(() => {
-    for (let i = 0; i < languageOptions.length; i++) {
-      if (languageOptions[i].value === currentLanguage) {
-        return languageOptions[i]
-      }
+    const handleThemeChange = (selectedOption) => {
+        setCurrentTheme(selectedOption)
     }
-    return languageOptions[0];
-  })
 
-  return (
-    <StyledEditorContainer isFullScreen={isFullScreen}>
-     {!isFullScreen && <UpperToolBar>
-        <Header>
-          <Title>
-            <h3>{title}</h3>
-          </Title>
-        </Header>
-        <SelectBars>
-          <Select
-            options={languageOptions}
-            value={language}
-            onChange={handleLanguageChange}
-          />
-          <Select
-            options={themeOptions}
-            value={currentTheme}
-            onChange={handleThemeChange}
-          />
-        </SelectBars>
-      </UpperToolBar>
-      }
-      <CodeEditorContainer>
-        <CodeEditor
-          currentLanguage={currentLanguage}
-          currentTheme={currentTheme.value}
-          currentCode={currentCode}
-          setCurrentCode={setCurrentCode}
-        />
-      </CodeEditorContainer>
-      <LowerToolBar>
-        <button onClick={() => setIsFullScreen((isFullScreen) => !isFullScreen)}>
-          <BiFullscreen /> {isFullScreen ? 'Minimize Screen' : 'Full Screen'}
-        </button>
+    const handleLanguageChange = (selectedOption) => {
+        setLanguage(selectedOption)
+        setCurrentLanguage(selectedOption.value)
+        setCurrentCode(languageMap[selectedOption.value].defaultCode)
+    }
 
-        <label htmlFor="codefile">
-          <input type="file" accept="." id="codefile" onChange={(e) => getFile(e, setCurrentCode)} /> <BiImport /> Import Code
-        </label>
+    const [currentTheme, setCurrentTheme] = useState({ value: 'githubDark', label: 'githubDark' })
+    const [language, setLanguage] = useState(() => {
+        for (let i = 0; i < languageOptions.length; i++) {
+            if (languageOptions[i].value === currentLanguage) {
+                return languageOptions[i]
+            }
+        }
+        return languageOptions[0];
+    })
 
-        <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(currentCode)}`} download="code.txt">
-          <BiExport /> Export Code
-        </a>
-        <SaveAndRunButton disabled onClick={runCode}>
-          <img src='https://webapp.educobot.com/assets/green_flag.png'/>
-        </SaveAndRunButton>
-      </LowerToolBar>
-    </StyledEditorContainer >
-  )
+    return (
+        <StyledEditorContainer isFullScreen={isFullScreen}>
+            {!isFullScreen && <UpperToolBar>
+                <Header>
+                    <Title>
+                        <h3>{title}</h3>
+                    </Title>
+                </Header>
+                <SelectBars>
+                    <Select
+                        options={languageOptions}
+                        value={language}
+                        onChange={handleLanguageChange}
+                    />
+                    <Select
+                        options={themeOptions}
+                        value={currentTheme}
+                        onChange={handleThemeChange}
+                    />
+                </SelectBars>
+            </UpperToolBar>
+            }
+            <CodeEditorContainer>
+                <CodeEditor
+                    currentLanguage={currentLanguage}
+                    currentTheme={currentTheme.value}
+                    currentCode={currentCode}
+                    setCurrentCode={setCurrentCode}
+                />
+            </CodeEditorContainer>
+            <LowerToolBar>
+                <button onClick={() => setIsFullScreen((isFullScreen) => !isFullScreen)}>
+                    <BiFullscreen /> {isFullScreen ? 'Minimize Screen' : 'Full Screen'}
+                </button>
+
+                <label htmlFor="codefile">
+                    <input type="file" accept="." id="codefile" onChange={(e) => getFile(e, setCurrentCode)} /> <BiImport /> Import Code
+                </label>
+
+                <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(currentCode)}`} download="code.txt">
+                    <BiExport /> Export Code
+                </a>
+                <SaveAndRunButton disabled onClick={runCode}>
+                    <img src='https://webapp.educobot.com/assets/green_flag.png' />
+                </SaveAndRunButton>
+            </LowerToolBar>
+        </StyledEditorContainer >
+    )
 }
 
 export default EditorContainer
